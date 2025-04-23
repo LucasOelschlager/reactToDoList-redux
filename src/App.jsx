@@ -31,20 +31,35 @@ function App() {
       <div className='task-container'>
         <p>Mis tareas</p>
         <div></div>
-        <ul className='taskList'>
+        <ul className="taskList">
+
           {tasks.map((task) => (
-            <li key={task.id} className='taskItem'>
+            <li key={task.id} className="taskItem">
               <p>{task.task}</p>
-              {!task.completed ? <span>La tarea no esta completada</span> : <span>La tarea se completo</span>}
-              <button onClick={() =>
-                dispatch(setTaskDone({ id: task.id, completed: true }))
-              }>Tarea Completa</button>
-              <button onClick={() => dispatch(removeTask({ id: task.id }))}>Eliminar tarea</button>
+              <div className="button-container">
+                <button
+                  className="buttonCompleted"
+                  onClick={() =>
+                    dispatch(setTaskDone({ id: task.id, completed: !task.completed }))
+                  }
+                >
+                  {task.completed ? "Marcar como pendiente" : "Marcar como completada"}
+                </button>
+                <button
+                  className="buttonEliminar"
+                  onClick={() => dispatch(removeTask({ id: task.id }))}
+                >
+                  Eliminar tarea
+                </button>
+              </div>
+              <span>
+                {task.completed
+                  ? "La tarea se completó"
+                  : "La tarea no está completada"}
+              </span>
             </li>
           ))}
-
         </ul>
-
       </div>
 
     </>
